@@ -1,4 +1,4 @@
-## PokemonBattleSim
+# PokemonBattleSim
 A functional representation of a battle in the core Pokemon games
 
 #Simulation is run through Engine.java main method
