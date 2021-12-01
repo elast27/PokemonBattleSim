@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class Pokemon {
 	private int id;
+	private int hp;
 	private String name;
 	private Stats stats;
 	private Stats ivs;
@@ -55,6 +56,7 @@ public class Pokemon {
 		this.stageMult.put("spa", 0);
 		this.stageMult.put("spd", 0);
 		this.stageMult.put("spe", 0);
+		this.hp = 1;
 	}
 
 	public Pokemon(int id, String name, int lvl, Stats stats, Type type1, Type type2, Move[] moves, Ability ability) {
@@ -74,12 +76,19 @@ public class Pokemon {
 		this.stageMult.put("spa", 0);
 		this.stageMult.put("spd", 0);
 		this.stageMult.put("spe", 0);
+		this.hp = 1;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
 
+	public int getHp() {
+		return hp;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
 	public void setId(int id) {
 		this.id = id;
 	}

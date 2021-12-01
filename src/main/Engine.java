@@ -30,6 +30,12 @@ public class Engine {
 		return ((((((2*attacker.getLvl()/5)+2)*move.getPower()*(A/B))/50)+2)* random * stab * typeEffect);
 	}
 	
+	public static void attack(Pokemon attacker, Move move, Pokemon defender) {
+		double damage = damageCalc(attacker, move, defender);
+		defender.setHp((int)(defender.getStat("hp")-damage));
+		if(defender.getHp()<=0) defender.setHp(0);
+	}
+	
 	public static void main(String[] args) {
 		Move[] moveset = new Move[4];
 		
@@ -37,29 +43,31 @@ public class Engine {
 		moveset[1] = Move.DISCHARGE;
 		moveset[2] = Move.QUICK_ATTACK;
 		moveset[3] = Move.ICE_BEAM;
-		final Ability STATIC = new Ability();
-		Pokemon Manaphy = new Pokemon(25, "Manaphy", 60, new Stats(100,100,100,100,100,100), Type.WATER, null, moveset, STATIC);
+		
+		Pokemon Manaphy = new Pokemon(490, "Manaphy", 60, new Stats(100,100,100,100,100,100), Type.WATER, null, moveset, Ability.HYDRATION);
 		Manaphy.setEvs(new Stats(20,0,5,100,0,130));
 		Manaphy.setIvs(new Stats(15,15,15,15,15,15));
 		Manaphy.setNature(Nature.RASH);
-//		Manaphy.setStageMult("def", 6);
+//		Manaphy.addStageMult("def", 6);
 		
 		Move[] moveset2 = new Move[4];
 		moveset2[0] = Move.EARTHQUAKE;
-		final Ability KEEN_EYE = new Ability();
-		Pokemon Talonflame = new Pokemon(16, "Talonflame", 45, new Stats(78,81,71,74,69,126), Type.FIRE, Type.FLYING, moveset2, KEEN_EYE);
+		
+		Pokemon Talonflame = new Pokemon(663, "Talonflame", 45, new Stats(78,81,71,74,69,126), Type.FIRE, Type.FLYING, moveset2, Ability.KEEN_EYE);
 		Talonflame.setEvs(new Stats(0,0,0,0,0,0));
 		Talonflame.setIvs(new Stats(15,15,15,15,15,15));
 		Talonflame.setNature(Nature.RELAXED);
 		
-		Pokemon Garchomp = new Pokemon(1, "Garchomp", 66, new Stats(108,130,95,80,85,102), Type.DRAGON, Type.GROUND, moveset2, KEEN_EYE);
+		
+		Pokemon Garchomp = new Pokemon(445, "Garchomp", 66, new Stats(108,130,95,80,85,102), Type.DRAGON, Type.GROUND, moveset2, Ability.SAND_VEIL);
 		Garchomp.setNature(Nature.ADAMANT);
 		Garchomp.setIvs(new Stats(24,12,30,16,23,5));
 		Garchomp.setEvs(new Stats(74,190,91,48,84,23));
-//		Garchomp.setStageMult("atk", 2);
+//		Garchomp.addStageMult("atk", 2);
 		
-		System.out.println(damageCalc(Garchomp, Garchomp.getMoves()[0], Manaphy));
-		System.out.println(Garchomp.getStat("hp"));
-		System.out.println(Manaphy.getStat("hp"));
+		attack(Garchomp, Garchomp.getMoves()[0], Manaphy);
+		//System.out.println(Garchomp.getStat("hp"));
+		//System.out.println(Manaphy.getStat("hp"));
+		//System.out.println(Manaphy.getHp());
 	}
 }
