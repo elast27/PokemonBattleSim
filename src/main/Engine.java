@@ -9,7 +9,10 @@ public class Engine {
 		double stab = (move.getType().equals(attacker.getType1()) || move.getType().equals(attacker.getType2())) ? 1.5 : 1;
 		double typeEffect = 1;
 		if(defender.getType2()!=null) {
-			if(defender.getType1().getType().equals(move.getType().getNoEffect()) || defender.getType2().getType().equals(move.getType().getNoEffect())) return 0;
+			if(defender.getType1().getType().equals(move.getType().getNoEffect()) || defender.getType2().getType().equals(move.getType().getNoEffect())) {
+				System.out.println("It doesn't affect " + defender.getName());
+				return 0;
+			}
 			if(defender.getType1().getWeak().contains(move.getType().getType())) typeEffect *= 2;
 			if(defender.getType2().getWeak().contains(move.getType().getType())) typeEffect *= 2;
 			if(defender.getType1().getResistant().contains(move.getType().getType())) typeEffect *= 0.5;
@@ -27,13 +30,29 @@ public class Engine {
 			A = attacker.getStat("spa");
 			B = defender.getStat("spd");
 		}
+		if(typeEffect > 1) System.out.println("It's super effective!");
+		else if (typeEffect < 1) System.out.println("It's not very effective...");
 		return ((((((2*attacker.getLvl()/5)+2)*move.getPower()*(A/B))/50)+2)* random * stab * typeEffect);
 	}
 	
 	public static void attack(Pokemon attacker, Move move, Pokemon defender) {
+		System.out.println(attacker.getName() + " used " + move.getName());
 		double damage = damageCalc(attacker, move, defender);
-		defender.setHp((int)(defender.getStat("hp")-damage));
-		if(defender.getHp()<=0) defender.setHp(0);
+		defender.setHp((int)(defender.getHp()-damage));
+		if(defender.getHp()<=0) {
+			defender.setHp(0);
+			System.out.println(defender.getName() + " fainted");
+		}
+	}
+	
+	public static void battleTurn(Pokemon a, Move m, Pokemon b, Move n) {
+		if(a.getStat("spd")>b.getStat("spd")) {
+			attack(a,m,b);
+			if(b.getHp()>0) attack(b,n,a);
+		} else {
+			attack(b,n,a);
+			if(a.getHp()>0) attack(a,m,b);
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -48,6 +67,7 @@ public class Engine {
 		Manaphy.setEvs(new Stats(20,0,5,100,0,130));
 		Manaphy.setIvs(new Stats(15,15,15,15,15,15));
 		Manaphy.setNature(Nature.RASH);
+		Manaphy.setHp((int)Manaphy.getStat("hp"));
 //		Manaphy.addStageMult("def", 6);
 		
 		Move[] moveset2 = new Move[4];
@@ -63,11 +83,13 @@ public class Engine {
 		Garchomp.setNature(Nature.ADAMANT);
 		Garchomp.setIvs(new Stats(24,12,30,16,23,5));
 		Garchomp.setEvs(new Stats(74,190,91,48,84,23));
+		Garchomp.setHp((int)Garchomp.getStat("hp"));
 //		Garchomp.addStageMult("atk", 2);
 		
-		attack(Garchomp, Garchomp.getMoves()[0], Manaphy);
-		//System.out.println(Garchomp.getStat("hp"));
-		//System.out.println(Manaphy.getStat("hp"));
-		//System.out.println(Manaphy.getHp());
+		System.out.println("Garchomp Starting HP: "+Garchomp.getHp());
+		System.out.println("Manaphy Starting HP: "+Manaphy.getHp());
+		battleTurn(Garchomp, Garchomp.getMoves()[0], Manaphy, Manaphy.getMoves()[3]);
+		System.out.println(Manaphy.getHp());
+		System.out.println(Garchomp.getHp());
 	}
 }
