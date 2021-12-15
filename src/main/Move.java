@@ -8,6 +8,7 @@ public class Move {
 	private DamageType damageType;
 	private String desc;
 	
+	
 	public enum DamageType{PHYSICAL, SPECIAL, STATUS}
 	
 	final static Move THUNDER_SHOCK = new Move("Thunder Shock", Type.ELECTRIC, 40, 100, DamageType.SPECIAL, "desc");

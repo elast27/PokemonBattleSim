@@ -40,23 +40,7 @@ public class Pokemon {
 	}
 
 	public Pokemon(int id) {
-		super();
-		this.id = id;
-		this.name = "";
-		this.stats = null;
-		this.type1 = null;
-		this.type2 = null;
-		this.moves = new Move[4];
-		this.ability = null;
-		this.lvl = 1;
-		this.xp = 0;
-		this.xpToNext = (int)Math.floor(Math.pow(this.lvl, 3));
-		this.stageMult.put("atk", 0);
-		this.stageMult.put("def", 0);
-		this.stageMult.put("spa", 0);
-		this.stageMult.put("spd", 0);
-		this.stageMult.put("spe", 0);
-		this.hp = 1;
+		this(id, "", 1, new Stats(0,0,0,0,0,0), null, null, null, null);
 	}
 
 	public Pokemon(int id, String name, int lvl, Stats stats, Type type1, Type type2, Move[] moves, Ability ability) {
@@ -76,6 +60,10 @@ public class Pokemon {
 		this.stageMult.put("spa", 0);
 		this.stageMult.put("spd", 0);
 		this.stageMult.put("spe", 0);
+		this.stageMult.put("acc", 0);
+		this.stageMult.put("eva", 0);
+		this.setEvs(new Stats(0,0,0,0,0,0));
+		this.setIvs(new Stats(0,0,0,0,0,0));
 		this.hp = 1;
 	}
 	
@@ -195,5 +183,59 @@ public class Pokemon {
 	
 	public double getStat(String stat) {
 		return Stats.getStat(this, stat);
+	}
+	public void setStat(String stat, int value) {
+		Stats s = this.getStats();
+		switch(stat) {
+		case("hp"):
+			s.setHp(value);
+			break;
+		case("atk"):
+			s.setAtk(value);
+			break;
+		case("def"):
+			s.setDef(value);
+			break;
+		case("spa"):
+			s.setSpa(value);
+			break;
+		case("spd"):
+			s.setSpd(value);
+			break;
+		case("spe"):
+			s.setSpe(value);
+			break;
+		}
+	}
+	
+	public void addEv(String stat, int value) {
+		Stats s = this.getEvs();
+		int v;
+		switch(stat) {
+		case("hp"):
+			v = s.getHp();
+			s.setHp(v + value);
+			break;
+		case("atk"):
+			v = s.getAtk();
+			s.setAtk(v + value);
+			break;
+		case("def"):
+			v = s.getDef();
+			s.setDef(v + value);
+			break;
+		case("spa"):
+			v = s.getSpa();
+			s.setSpa(v + value);
+			break;
+		case("spd"):
+			v = s.getSpd();
+			s.setSpd(v + value);
+			break;
+		case("spe"):
+			v = s.getSpe();
+			s.setSpe(v + value);
+			break;
+		}
 	}
 }
