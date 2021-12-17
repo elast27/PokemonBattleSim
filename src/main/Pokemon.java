@@ -189,6 +189,7 @@ public class Pokemon {
 
 	public void setIvs(Stats ivs) {
 		this.ivs = ivs;
+		if(this.evs!=null) this.hp=(int)this.getStat("hp");
 	}
 
 	public Stats getEvs() {
@@ -197,6 +198,7 @@ public class Pokemon {
 
 	public void setEvs(Stats evs) {
 		this.evs = evs;
+		if(this.ivs!=null) this.hp=(int)this.getStat("hp");
 	}
 
 	public Nature getNature() {
@@ -296,6 +298,20 @@ public class Pokemon {
 	
 	public void setParalysis(double prob) {
 		double r = Math.random();
-		if(r < prob) this.isParalyzed=true;
+		if(r < prob && this.isParalyzed==false) {
+			this.isParalyzed=true;
+			System.out.println(this.getName()+" was paralyzed! It may be unable to move.");
+			this.setStat("spe", (int)this.getStat("spe")/2);
+		}
+		else if (r < prob) System.out.println(this.getName()+" is already paralyzed.");
+	}
+	
+	public void setBurn(double prob) {
+		double r = Math.random();
+		if(r < prob && this.isBurned==false) {
+			this.isBurned=true;
+			System.out.println(this.getName()+" has been burned!");
+			this.setStat("atk", (int)this.getStat("atk")/2);
+		}
 	}
 }

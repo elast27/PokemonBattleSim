@@ -14,6 +14,7 @@ public class Move {
 	
 	final static Move THUNDER_SHOCK = new EffectMove("Thunder Shock", Type.ELECTRIC, 40, 100, 20,DamageType.SPECIAL, "desc", p->p.setParalysis(0.1));
 	final static Move DISCHARGE = new EffectMove("Discharge", Type.ELECTRIC, 80, 100, 15, DamageType.SPECIAL, "desc", p->p.setParalysis(0.3));
+	final static Move STUN_SPORE = new EffectMove("Stun Spore", Type.GRASS, 0, 75, 30, DamageType.STATUS, "desc", p->p.setParalysis(1));
 	final static Move QUICK_ATTACK = new Move("Quick Attack", Type.NORMAL, 40, 100, 30, DamageType.PHYSICAL, "desc");
 	final static Move ICE_BEAM = new Move("Ice Beam", Type.ICE, 80, 100, 15, DamageType.SPECIAL, "desc");
 	final static Move EARTHQUAKE = new Move("Earthquake", Type.GROUND, 100, 100, 15, DamageType.PHYSICAL, "desc");

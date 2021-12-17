@@ -9,7 +9,7 @@ public class Engine {
 		double random = Math.random() * (0.15)+0.85;
 		double stab = (move.getType().equals(attacker.getType1()) || move.getType().equals(attacker.getType2())) ? 1.5 : 1;
 		double typeEffect = 1;
-		if(defender.getType1().getNoEffect().equals(move.getType().getNoEffect()) && !move.getType().getNoEffect().equals("")) {
+		if(defender.getType1().getType().equals(move.getType().getNoEffect()) && !move.getType().getNoEffect().equals("")) {
 			System.out.println("It doesn't affect " + defender.getName());
 			return 0;
 		} 
@@ -17,7 +17,7 @@ public class Engine {
 		if(defender.getType1().getResistant().contains(move.getType().getType())) typeEffect *= 0.5;
 		
 		if(defender.getType2()!=null) {
-			if(defender.getType2().getNoEffect().equals(move.getType().getNoEffect()) && !move.getType().getNoEffect().equals("")) {
+			if(defender.getType2().getType().equals(move.getType().getNoEffect()) && !move.getType().getNoEffect().equals("")) {
 				System.out.println("It doesn't affect " + defender.getName());
 				return 0;
 			}
@@ -54,6 +54,7 @@ public class Engine {
 			if(move.getDamageType()!=DamageType.STATUS) {
 				double damage = damageCalc(attacker, move, defender);
 				defender.setHp((int)(defender.getHp()-damage));
+				if(damage == 0) return;
 				if(defender.getHp()<=0) {
 					defender.setHp(0);
 					System.out.println(defender.getName() + " fainted");
@@ -64,15 +65,7 @@ public class Engine {
 				else ((StatusMove) move).getEffect().apply(defender);
 			}
 			if(move instanceof EffectMove) {
-				if(defender.isParalyzed || defender.isBurned || defender.isPoisoned || defender.isAsleep) {
-					System.out.println("But it failed!");
-					return;
-				}
 				((EffectMove)move).getEffect().apply(defender);
-				if(defender.isParalyzed) {
-					System.out.println(defender.getName()+" has been paralyzed! It may be unable to move.");
-					defender.setStat("spe", (int)defender.getStat("spe")/2);
-				} 
 			}
 		} else {
 			System.out.println(attacker.getName() + "'s attack missed!");
@@ -102,6 +95,15 @@ public class Engine {
 	public static void endOfTurn(Pokemon a, Pokemon b) {
 		a.isFlinched=false;
 		b.isFlinched=false;
+		conditionCheck(a);
+		conditionCheck(b);
+	}
+	
+	public static void conditionCheck(Pokemon p) {
+		if(p.isBurned || p.isPoisoned) {
+			double value = p.getStat("hp")/16f;
+			p.setHp((int)(p.getHp()-value));
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -113,7 +115,6 @@ public class Engine {
 		Manaphy.setEvs(new Stats(20,0,5,100,0,130));
 		Manaphy.setIvs(new Stats(15,15,15,15,15,15));
 		Manaphy.setNature(Nature.RASH);
-		Manaphy.setHp((int)Manaphy.getStat("hp"));
 		
 		Pokemon Talonflame = new Pokemon(663, "Talonflame", 45, new Stats(78,81,71,74,69,126), Type.FIRE, Type.FLYING, null, Ability.KEEN_EYE);
 		Talonflame.setNature(Nature.RELAXED);
@@ -127,21 +128,23 @@ public class Engine {
 		Garchomp.setNature(Nature.ADAMANT);
 		Garchomp.setIvs(new Stats(24,12,30,16,23,5));
 		Garchomp.setEvs(new Stats(74,190,91,48,84,23));
-		Garchomp.setHp((int)Garchomp.getStat("hp"));
 		
 		Move[] moveset3 = new Move[4];
 		moveset3[0] = Move.DISCHARGE;
 		moveset3[1] = Move.QUICK_ATTACK;
 		moveset3[2] = Move.THUNDER_SHOCK;
+		moveset3[3] = Move.STUN_SPORE;
 		
-		Pokemon Pikachu = new Pokemon(25, "Pikachu", 40 ,new Stats(35,55,40,50,50,90), Type.ELECTRIC, null, moveset3, Ability.STATIC);
+		Pokemon Pikachu = new Pokemon(25, "Pikachu", 80 ,new Stats(35,55,40,50,50,90), Type.ELECTRIC, null, moveset3, Ability.STATIC);
 		Pikachu.setNature(Nature.HARDY);
-		Pikachu.setHp((int)Pikachu.getStat("hp"));
 		
 		System.out.println("Garchomp Starting HP: "+Garchomp.getHp());
-		System.out.println("Manaphy Starting HP: "+Manaphy.getHp());
-		battleTurn(Garchomp, Garchomp.getMoves()[2], Manaphy, Manaphy.getMoves()[1]);		
+		System.out.println("Pikachu Starting HP: "+Pikachu.getHp());
+		battleTurn(Garchomp, Garchomp.getMoves()[1], Pikachu, Pikachu.getMoves()[3]);		
 		System.out.println("Garchomp Ending HP: "+Garchomp.getHp());
-		System.out.println("Manaphy Ending HP: "+Manaphy.getHp());
+		System.out.println("Pikachu Ending HP: "+Pikachu.getHp());
+		battleTurn(Garchomp, Garchomp.getMoves()[0], Pikachu, Pikachu.getMoves()[0]);
+		System.out.println("Garchomp Ending HP: "+Garchomp.getHp());
+		System.out.println("Pikachu Ending HP: "+Pikachu.getHp());
 	}
 }
