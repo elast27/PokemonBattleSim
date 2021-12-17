@@ -20,6 +20,7 @@ public class Pokemon {
 	private HashMap<String, Integer> stageMult = new HashMap<>();
 	private Item heldItem;
 	boolean isFlinched = false;
+	boolean isParalyzed = false;
 		
 	public Item getHeldItem() {
 		return heldItem;
@@ -65,7 +66,7 @@ public class Pokemon {
 		this.stageMult.put("eva", 0);
 		this.setEvs(new Stats(0,0,0,0,0,0));
 		this.setIvs(new Stats(0,0,0,0,0,0));
-		this.hp = 1;
+		this.hp = (int)getStat("hp");
 	}
 	
 	public int getId() {
@@ -243,5 +244,10 @@ public class Pokemon {
 	public void setFlinched(double prob) {
 		double r = Math.random();
 		if(r < prob) this.isFlinched=true;
+	}
+	
+	public void setParalysis(double prob) {
+		double r = Math.random();
+		if(r < prob) this.isParalyzed=true;
 	}
 }

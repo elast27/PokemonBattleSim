@@ -2,13 +2,13 @@ package main;
 
 import main.Move.DamageType;
 
-public class FlinchingMove extends Move {
+public class EffectMove extends Move {
 	StatusMoveEffect e;
-	FlinchingMove(String name, Type type, int power, int acc, int pp, DamageType damageType, String desc){
+	EffectMove(String name, Type type, int power, int acc, int pp, DamageType damageType, String desc){
 		super(name,type,power,acc,pp,damageType,desc);
 	}
 	
-	FlinchingMove(String name, Type type, int power, int acc, int pp, DamageType damageType, String desc, StatusMoveEffect e){
+	EffectMove(String name, Type type, int power, int acc, int pp, DamageType damageType, String desc, StatusMoveEffect e){
 		super(name,type,power,acc,pp,damageType,desc);
 		this.e = e;
 	}
