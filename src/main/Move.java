@@ -21,6 +21,7 @@ public class Move {
 	final static Move TAIL_GLOW = new StatusMove("Tail Glow", Type.BUG, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult("spa", 3), true);
 	final static Move LEER = new StatusMove("Leer", Type.NORMAL, 0, 100, 40, DamageType.STATUS, "desc", p->p.addStageMult("def", -1), false);
 	final static Move SCREECH = new StatusMove("Screech", Type.NORMAL, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult("def", -2), false);
+	final static Move BITE = new FlinchingMove("Bite", Type.DARK, 60,100,25,DamageType.PHYSICAL,"desc", p->p.setFlinched(0.3));
 	
 	public Move(String name, Type type, int power, int acc, int pp, DamageType damageType, String desc) {
 		super();

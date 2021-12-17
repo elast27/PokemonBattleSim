@@ -9,20 +9,20 @@ public class Engine {
 		double random = Math.random() * (0.15)+0.85;
 		double stab = (move.getType().equals(attacker.getType1()) || move.getType().equals(attacker.getType2())) ? 1.5 : 1;
 		double typeEffect = 1;
+		if(defender.getType1().getNoEffect().equals(move.getType().getNoEffect()) && !move.getType().getNoEffect().equals("")) {
+			System.out.println("It doesn't affect " + defender.getName());
+			return 0;
+		} 
+		if(defender.getType1().getWeak().contains(move.getType().getType())) typeEffect *= 2;
+		if(defender.getType1().getResistant().contains(move.getType().getType())) typeEffect *= 0.5;
+		
 		if(defender.getType2()!=null) {
-			if(defender.getType1().getType().equals(move.getType().getNoEffect()) || defender.getType2().getType().equals(move.getType().getNoEffect())) {
+			if(defender.getType2().getNoEffect().equals(move.getType().getNoEffect()) && !move.getType().getNoEffect().equals("")) {
 				System.out.println("It doesn't affect " + defender.getName());
 				return 0;
 			}
-			if(defender.getType1().getWeak().contains(move.getType().getType())) typeEffect *= 2;
 			if(defender.getType2().getWeak().contains(move.getType().getType())) typeEffect *= 2;
-			if(defender.getType1().getResistant().contains(move.getType().getType())) typeEffect *= 0.5;
 			if(defender.getType2().getResistant().contains(move.getType().getType())) typeEffect *= 0.5;
-		}
-		else {
-			if(defender.getType1().getNoEffect().equals(move.getType().getNoEffect())) return 0;
-			if(defender.getType1().getWeak().contains(move.getType().getType())) typeEffect *= 2;
-			if(defender.getType1().getResistant().contains(move.getType().getType())) typeEffect *= 0.5;
 		}
 		if(move.getDamageType()==Move.DamageType.PHYSICAL) {
 			A = attacker.getStat("atk");
@@ -37,6 +37,11 @@ public class Engine {
 	}
 	
 	public static void attack(Pokemon attacker, Move move, Pokemon defender) {
+		if(attacker.isFlinched) {
+			System.out.println(attacker.getName()+ " flinched and couldn't move!");
+			attacker.isFlinched = false;
+			return;
+		}
 		System.out.println(attacker.getName() + " used " + move.getName());
 		if(moveHits(attacker, defender, move)) {
 			if(move.getDamageType()!=DamageType.STATUS) {
@@ -46,12 +51,13 @@ public class Engine {
 					defender.setHp(0);
 					System.out.println(defender.getName() + " fainted");
 				}
-			} else {
-				if(move instanceof StatusMove) {
-					if(((StatusMove)move).getTarget())
-						((StatusMove) move).getEffect().apply(attacker);
-					else ((StatusMove) move).getEffect().apply(defender);
-				}
+			}
+			if(move instanceof StatusMove) {
+				if(((StatusMove)move).getTarget()) ((StatusMove) move).getEffect().apply(attacker);
+				else ((StatusMove) move).getEffect().apply(defender);
+			}
+			if(move instanceof FlinchingMove) {
+				((FlinchingMove)move).getEffect().apply(defender);
 			}
 		} else {
 			System.out.println(attacker.getName() + "'s attack missed!");
@@ -97,6 +103,7 @@ public class Engine {
 		Move[] moveset2 = new Move[4];
 		moveset2[0] = Move.EARTHQUAKE;
 		moveset2[1] = Move.SWORDS_DANCE;
+		moveset2[2] = Move.BITE;
 		Pokemon Garchomp = new Pokemon(445, "Garchomp", 66, new Stats(108,130,95,80,85,102), Type.DRAGON, Type.GROUND, moveset2, Ability.SAND_VEIL);
 		Garchomp.setNature(Nature.ADAMANT);
 		Garchomp.setIvs(new Stats(24,12,30,16,23,5));
@@ -107,7 +114,7 @@ public class Engine {
 		Move[] moveset3 = new Move[4];
 		moveset3[0] = Move.DISCHARGE;
 		moveset3[1] = Move.QUICK_ATTACK;
-		moveset3[2] = Move.QUICK_ATTACK;
+		moveset3[2] = Move.THUNDER_SHOCK;
 		
 		Pokemon Pikachu = new Pokemon(25, "Pikachu", 40 ,new Stats(35,55,40,50,50,90), Type.ELECTRIC, null, moveset3, Ability.STATIC);
 		Pikachu.setNature(Nature.HARDY);
@@ -115,7 +122,7 @@ public class Engine {
 		
 		System.out.println("Garchomp Starting HP: "+Garchomp.getHp());
 		System.out.println("Manaphy Starting HP: "+Manaphy.getHp());
-		battleTurn(Garchomp, Garchomp.getMoves()[1], Manaphy, Manaphy.getMoves()[1]);		
+		battleTurn(Garchomp, Garchomp.getMoves()[2], Manaphy, Manaphy.getMoves()[0]);		
 		System.out.println("Garchomp Ending HP: "+Garchomp.getHp());
 		System.out.println("Manaphy Ending HP: "+Manaphy.getHp());
 	}

@@ -19,6 +19,7 @@ public class Pokemon {
 	private int lvl;
 	private HashMap<String, Integer> stageMult = new HashMap<>();
 	private Item heldItem;
+	boolean isFlinched = false;
 		
 	public Item getHeldItem() {
 		return heldItem;
@@ -237,5 +238,10 @@ public class Pokemon {
 			s.setSpe(v + value);
 			break;
 		}
+	}
+	
+	public void setFlinched(double prob) {
+		double r = Math.random();
+		if(r < prob) this.isFlinched=true;
 	}
 }
