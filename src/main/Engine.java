@@ -1,7 +1,8 @@
 package main;
 
+import main.Move.DamageType;
+
 public class Engine {
-	
 	public static double damageCalc(Pokemon attacker, Move move, Pokemon defender) {
 		double A = 0;
 		double B = 0;
@@ -38,11 +39,19 @@ public class Engine {
 	public static void attack(Pokemon attacker, Move move, Pokemon defender) {
 		System.out.println(attacker.getName() + " used " + move.getName());
 		if(moveHits(attacker, defender, move)) {
-			double damage = damageCalc(attacker, move, defender);
-			defender.setHp((int)(defender.getHp()-damage));
-			if(defender.getHp()<=0) {
-				defender.setHp(0);
-				System.out.println(defender.getName() + " fainted");
+			if(move.getDamageType()!=DamageType.STATUS) {
+				double damage = damageCalc(attacker, move, defender);
+				defender.setHp((int)(defender.getHp()-damage));
+				if(defender.getHp()<=0) {
+					defender.setHp(0);
+					System.out.println(defender.getName() + " fainted");
+				}
+			} else {
+				if(move instanceof StatusMove) {
+					if(((StatusMove)move).getTarget())
+						((StatusMove) move).getEffect().apply(attacker);
+					else ((StatusMove) move).getEffect().apply(defender);
+				}
 			}
 		} else {
 			System.out.println(attacker.getName() + "'s attack missed!");
@@ -72,13 +81,13 @@ public class Engine {
 	public static void main(String[] args) {
 		Move[] moveset = new Move[4];
 		moveset[0] = Move.ICE_BEAM;
+		moveset[1] = Move.TAIL_GLOW;
 		
 		Pokemon Manaphy = new Pokemon(490, "Manaphy", 60, new Stats(100,100,100,100,100,100), Type.WATER, null, moveset, Ability.HYDRATION);
 		Manaphy.setEvs(new Stats(20,0,5,100,0,130));
 		Manaphy.setIvs(new Stats(15,15,15,15,15,15));
 		Manaphy.setNature(Nature.RASH);
 		Manaphy.setHp((int)Manaphy.getStat("hp"));
-//	 	Manaphy.addStageMult("def", 6);
 		
 		Pokemon Talonflame = new Pokemon(663, "Talonflame", 45, new Stats(78,81,71,74,69,126), Type.FIRE, Type.FLYING, null, Ability.KEEN_EYE);
 		Talonflame.setEvs(new Stats(0,0,0,0,0,0));
@@ -87,7 +96,7 @@ public class Engine {
 		
 		Move[] moveset2 = new Move[4];
 		moveset2[0] = Move.EARTHQUAKE;
-		
+		moveset2[1] = Move.SWORDS_DANCE;
 		Pokemon Garchomp = new Pokemon(445, "Garchomp", 66, new Stats(108,130,95,80,85,102), Type.DRAGON, Type.GROUND, moveset2, Ability.SAND_VEIL);
 		Garchomp.setNature(Nature.ADAMANT);
 		Garchomp.setIvs(new Stats(24,12,30,16,23,5));
@@ -95,10 +104,19 @@ public class Engine {
 		Garchomp.setHp((int)Garchomp.getStat("hp"));
 //		Garchomp.addStageMult("atk", 2);
 		
+		Move[] moveset3 = new Move[4];
+		moveset3[0] = Move.DISCHARGE;
+		moveset3[1] = Move.QUICK_ATTACK;
+		moveset3[2] = Move.QUICK_ATTACK;
+		
+		Pokemon Pikachu = new Pokemon(25, "Pikachu", 40 ,new Stats(35,55,40,50,50,90), Type.ELECTRIC, null, moveset3, Ability.STATIC);
+		Pikachu.setNature(Nature.HARDY);
+		Pikachu.setHp((int)Pikachu.getStat("hp"));
+		
 		System.out.println("Garchomp Starting HP: "+Garchomp.getHp());
 		System.out.println("Manaphy Starting HP: "+Manaphy.getHp());
-		battleTurn(Garchomp, Garchomp.getMoves()[0], Manaphy, Manaphy.getMoves()[0]);
-		System.out.println(Manaphy.getHp());
-		System.out.println(Garchomp.getHp());
+		battleTurn(Garchomp, Garchomp.getMoves()[1], Manaphy, Manaphy.getMoves()[1]);		
+		System.out.println("Garchomp Ending HP: "+Garchomp.getHp());
+		System.out.println("Manaphy Ending HP: "+Manaphy.getHp());
 	}
 }

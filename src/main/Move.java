@@ -5,27 +5,35 @@ public class Move {
 	private Type type;
 	private int power;
 	private int acc;
+	private int pp;
 	private DamageType damageType;
 	private String desc;
 	
 	
 	public enum DamageType{PHYSICAL, SPECIAL, STATUS}
 	
-	final static Move THUNDER_SHOCK = new Move("Thunder Shock", Type.ELECTRIC, 40, 100, DamageType.SPECIAL, "desc");
-	final static Move DISCHARGE = new Move("Discharge", Type.ELECTRIC, 80, 100, DamageType.SPECIAL, "desc");
-	final static Move QUICK_ATTACK = new Move("Quick Attack", Type.NORMAL, 40, 100, DamageType.PHYSICAL, "desc");
-	final static Move ICE_BEAM = new Move("Ice Beam", Type.ICE, 80, 100, DamageType.SPECIAL, "desc");
-	final static Move EARTHQUAKE = new Move("Earthquake", Type.GROUND, 100, 100, DamageType.PHYSICAL, "desc");
+	final static Move THUNDER_SHOCK = new Move("Thunder Shock", Type.ELECTRIC, 40, 100, 20,DamageType.SPECIAL, "desc");
+	final static Move DISCHARGE = new Move("Discharge", Type.ELECTRIC, 80, 100, 15, DamageType.SPECIAL, "desc");
+	final static Move QUICK_ATTACK = new Move("Quick Attack", Type.NORMAL, 40, 100, 30, DamageType.PHYSICAL, "desc");
+	final static Move ICE_BEAM = new Move("Ice Beam", Type.ICE, 80, 100, 15, DamageType.SPECIAL, "desc");
+	final static Move EARTHQUAKE = new Move("Earthquake", Type.GROUND, 100, 100, 15, DamageType.PHYSICAL, "desc");
+	final static Move SWORDS_DANCE = new StatusMove("Swords Dance", Type.NORMAL, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult("atk", 2), true);
+	final static Move TAIL_GLOW = new StatusMove("Tail Glow", Type.BUG, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult("spa", 3), true);
+	final static Move LEER = new StatusMove("Leer", Type.NORMAL, 0, 100, 40, DamageType.STATUS, "desc", p->p.addStageMult("def", -1), false);
+	final static Move SCREECH = new StatusMove("Screech", Type.NORMAL, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult("def", -2), false);
 	
-	public Move(String name, Type type, int power, int acc, DamageType damageType, String desc) {
+	public Move(String name, Type type, int power, int acc, int pp, DamageType damageType, String desc) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.power = power;
 		this.acc = acc;
+		this.pp = pp;
 		this.damageType = damageType;
 		this.desc = desc;
 	}
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -50,6 +58,12 @@ public class Move {
 	public void setAcc(int acc) {
 		this.acc = acc;
 	}
+	public int getPP() {
+		return pp;
+	}
+	public void setPP(int pp) {
+		this.pp = pp;
+	}	
 	public DamageType getDamageType() {
 		return damageType;
 	}
