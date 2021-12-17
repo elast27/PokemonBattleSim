@@ -64,6 +64,10 @@ public class Engine {
 				else ((StatusMove) move).getEffect().apply(defender);
 			}
 			if(move instanceof EffectMove) {
+				if(defender.isParalyzed || defender.isBurned || defender.isPoisoned || defender.isAsleep) {
+					System.out.println("But it failed!");
+					return;
+				}
 				((EffectMove)move).getEffect().apply(defender);
 				if(defender.isParalyzed) {
 					System.out.println(defender.getName()+" has been paralyzed! It may be unable to move.");
@@ -93,6 +97,9 @@ public class Engine {
 			attack(b,n,a);
 			if(a.getHp()>0) attack(a,m,b);
 		}
+		endOfTurn(a,b);
+	}
+	public static void endOfTurn(Pokemon a, Pokemon b) {
 		a.isFlinched=false;
 		b.isFlinched=false;
 	}
@@ -133,7 +140,7 @@ public class Engine {
 		
 		System.out.println("Garchomp Starting HP: "+Garchomp.getHp());
 		System.out.println("Manaphy Starting HP: "+Manaphy.getHp());
-		battleTurn(Garchomp, Garchomp.getMoves()[2], Manaphy, Manaphy.getMoves()[0]);		
+		battleTurn(Garchomp, Garchomp.getMoves()[2], Manaphy, Manaphy.getMoves()[1]);		
 		System.out.println("Garchomp Ending HP: "+Garchomp.getHp());
 		System.out.println("Manaphy Ending HP: "+Manaphy.getHp());
 	}

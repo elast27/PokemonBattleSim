@@ -21,6 +21,9 @@ public class Pokemon {
 	private Item heldItem;
 	boolean isFlinched = false;
 	boolean isParalyzed = false;
+	boolean isBurned = false;
+	boolean isPoisoned = false;
+	boolean isAsleep = false;
 		
 	public Item getHeldItem() {
 		return heldItem;
@@ -39,6 +42,51 @@ public class Pokemon {
 	}
 	public void addStageMult(String stat, int value) {
 		stageMult.put(stat, stageMult.get(stat)+value);
+		String msg = this.getName()+"'s ";
+		switch(stat) {
+		case("atk"):
+			msg+="attack ";
+			break;
+		case("def"):
+			msg+="defense ";
+			break;
+		case("spa"):
+			msg+="special attack ";
+			break;
+		case("spd"):
+			msg+="special defense ";
+			break;
+		case("spe"):
+			msg+="speed ";
+			break;
+		case("acc"):
+			msg+="accuracy ";
+			break;
+		case("eva"):
+			msg+="evasiveness ";
+			break;
+		}
+		switch(value) {
+		case(-3):
+			msg+="drastically fell!";
+			break;
+		case(-2):
+			msg+="harshly fell!";
+			break;
+		case(-1):
+			msg+="fell.";
+			break;
+		case(1):
+			msg+="rose.";
+			break;
+		case(2):
+			msg+="sharply rose!";
+			break;
+		case(3):
+			msg+="drastically rose!";
+			break;
+		}
+		System.out.println(msg);
 	}
 
 	public Pokemon(int id) {
