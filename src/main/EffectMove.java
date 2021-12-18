@@ -1,7 +1,5 @@
 package main;
 
-import main.Move.DamageType;
-
 public class EffectMove extends Move {
 	StatusMoveEffect e;
 	EffectMove(String name, Type type, int power, int acc, int pp, DamageType damageType, String desc){

@@ -1,7 +1,5 @@
 package main;
 
-import main.Move.DamageType;
-
 public class StatusMove extends Move {
 	StatusMoveEffect e;
 	boolean isSelf;

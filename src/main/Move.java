@@ -23,6 +23,7 @@ public class Move {
 	final static Move LEER = new StatusMove("Leer", Type.NORMAL, 0, 100, 40, DamageType.STATUS, "desc", p->p.addStageMult("def", -1), false);
 	final static Move SCREECH = new StatusMove("Screech", Type.NORMAL, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult("def", -2), false);
 	final static Move BITE = new EffectMove("Bite", Type.DARK, 60,100,25,DamageType.PHYSICAL,"desc", p->p.setFlinched(0.3));
+	final static Move ACID_ARMOR = new StatusMove("Acid Armor", Type.POISON, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult("def", 2), true);
 	
 	public Move(String name, Type type, int power, int acc, int pp, DamageType damageType, String desc) {
 		super();

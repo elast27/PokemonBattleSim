@@ -2,6 +2,8 @@ package main;
 
 import java.util.HashMap;
 
+import main.Move.DamageType;
+
 public class Pokemon {
 	private int id;
 	private int hp;
@@ -312,6 +314,49 @@ public class Pokemon {
 			this.isBurned=true;
 			System.out.println(this.getName()+" has been burned!");
 			this.setStat("atk", (int)this.getStat("atk")/2);
+		}
+	}
+	
+	public void attack(Pokemon defender, Move move) {
+		if(this.isFlinched) {
+			System.out.println(this.getName()+ " flinched and couldn't move!");
+			this.isFlinched = false;
+			return;
+		}
+		if(this.isParalyzed) {
+			double r = Math.random();
+			if(r < .25) {
+				System.out.println(this.getName()+" is paralyzed. It cannot move!");
+				return;
+			}
+		}
+		System.out.println(this.getName() + " used " + move.getName());
+		if(BattleUtils.moveHits(this, defender, move)) {
+			if(move.getDamageType()!=DamageType.STATUS) {
+				double damage = BattleUtils.damageCalc(this, move, defender);
+				defender.setHp((int)(defender.getHp()-damage));
+				if(damage == 0) return;
+				if(defender.getHp()<=0) {
+					defender.setHp(0);
+					System.out.println(defender.getName() + " fainted");
+				}
+			}
+			if(move instanceof StatusMove) {
+				if(((StatusMove)move).getTarget()) ((StatusMove) move).getEffect().apply(this);
+				else ((StatusMove) move).getEffect().apply(defender);
+			}
+			if(move instanceof EffectMove) {
+				((EffectMove)move).getEffect().apply(defender);
+			}
+		} else {
+			System.out.println(this.getName() + "'s attack missed!");
+		}
+	}
+	
+	public void conditionCheck() {
+		if(this.isBurned || this.isPoisoned) {
+			double value = this.getStat("hp")/16f;
+			this.setHp((int)(this.getHp()-value));
 		}
 	}
 }
