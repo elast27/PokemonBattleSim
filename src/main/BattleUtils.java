@@ -23,18 +23,18 @@ public class BattleUtils {
 			if(defender.getType2().getResistant().contains(move.getType().getType())) typeEffect *= 0.5;
 		}
 		if(move.getDamageType()==Move.DamageType.PHYSICAL) {
-			A = attacker.getStat("atk");
-			B = defender.getStat("def");
+			A = attacker.getStat(Stat.ATK);
+			B = defender.getStat(Stat.DEF);
 		} else if (move.getDamageType()==Move.DamageType.SPECIAL) {
-			A = attacker.getStat("spa");
-			B = defender.getStat("spd");
+			A = attacker.getStat(Stat.SPA);
+			B = defender.getStat(Stat.SPD);
 		}
 		if(typeEffect > 1) System.out.println("It's super effective!");
 		else if (typeEffect < 1) System.out.println("It's not very effective...");
 		return ((((((2*attacker.getLvl()/5)+2)*move.getPower()*(A/B))/50)+2)* random * stab * typeEffect);
 	}
 	public static boolean moveHits(Pokemon attacker, Pokemon defender, Move move) {
-		int stageMod = attacker.getStageMult("acc") - defender.getStageMult("eva");
+		int stageMod = attacker.getStageMult(Stat.ACC) - defender.getStageMult(Stat.EVA);
 		int mult = Math.abs(stageMod) + 3;
 		double accMult;
 		if(stageMod >= 0) accMult = mult/3.0;
@@ -43,15 +43,15 @@ public class BattleUtils {
 		if((double)move.getAcc()*accMult >= hitRandom) return true;
 		return false;
 	}
-	public static void battleTurn(Pokemon a, Move m, Pokemon b, Move n) {
-		if(a.getStat("spd")>b.getStat("spd")) {
-			a.attack(b, m);
-			if(b.getHp()>0) b.attack(a, n);
+	public static void battleTurn(Pokemon p1, Move m1, Pokemon p2, Move m2) {
+		if(p1.getStat(Stat.SPE)>p2.getStat(Stat.SPE)) {
+			p1.attack(p2, m1);
+			if(p2.getHp()>0) p2.attack(p1, m2);
 		} else {
-			b.attack(a, n);
-			if(a.getHp()>0) a.attack(b, n);
+			p2.attack(p1, m2);
+			if(p1.getHp()>0) p1.attack(p2, m1);
 		}
-		endOfTurn(a,b);
+		endOfTurn(p1,p2);
 	}
 	public static void endOfTurn(Pokemon a, Pokemon b) {
 		a.isFlinched=false;

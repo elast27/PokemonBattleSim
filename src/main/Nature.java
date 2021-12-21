@@ -6,12 +6,12 @@ import java.util.List;
 public class Nature {
 	private int id;
 	private String name;
-	private String positive;
-	private String negative;
+	private Stat positive;
+	private Stat negative;
 	
 	private static List<Nature> natures = initNatures();
 	
-	public Nature(int id, String name, String positive, String negative) {
+	public Nature(int id, String name, Stat positive, Stat negative) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -20,29 +20,29 @@ public class Nature {
 	}
 	public static List<Nature> initNatures() {
 		final Nature HARDY = new Nature(0, "Hardy", null, null);
-		final Nature LONELY = new Nature(1, "Lonely", "atk", "def");
-		final Nature BRAVE = new Nature(2, "Brave", "atk", "spe");
-		final Nature ADAMANT = new Nature(3, "Adamant", "atk", "spa");
-		final Nature NAUGHTY = new Nature(4, "Naughty", "atk", "spd");
-		final Nature BOLD = new Nature(5, "Bold", "def", "atk");
+		final Nature LONELY = new Nature(1, "Lonely", Stat.ATK, Stat.DEF);
+		final Nature BRAVE = new Nature(2, "Brave", Stat.ATK, Stat.SPE);
+		final Nature ADAMANT = new Nature(3, "Adamant", Stat.ATK, Stat.SPA);
+		final Nature NAUGHTY = new Nature(4, "Naughty", Stat.ATK, Stat.SPD);
+		final Nature BOLD = new Nature(5, "Bold", Stat.DEF, Stat.ATK);
 		final Nature DOCILE = new Nature(6, "Docile", null, null);
-		final Nature RELAXED = new Nature(7, "Relaxed", "def","spe");
-		final Nature IMPISH = new Nature(8, "Impish", "def", "spa");
-		final Nature LAX = new Nature(9, "Lax", "def", "spd");
-		final Nature TIMID = new Nature(10, "Timid", "spe", "atk");
-		final Nature HASTY = new Nature(11,"Hasty", "spe", "def");
+		final Nature RELAXED = new Nature(7, "Relaxed", Stat.DEF,Stat.SPE);
+		final Nature IMPISH = new Nature(8, "Impish", Stat.DEF, Stat.SPA);
+		final Nature LAX = new Nature(9, "Lax", Stat.DEF, Stat.SPD);
+		final Nature TIMID = new Nature(10, "Timid", Stat.SPE, Stat.ATK);
+		final Nature HASTY = new Nature(11,"Hasty", Stat.SPE, Stat.DEF);
 		final Nature SERIOUS = new Nature(12,"Serious", null, null);
-		final Nature JOLLY = new Nature(13,"Jolly", "spe", "spa");
-		final Nature NAIVE = new Nature(14,"Naive", "spe", "spd");
-		final Nature MODEST = new Nature(15,"Modest", "spa", "atk");
-		final Nature MILD = new Nature(16,"Mild", "spa", "def");
-		final Nature QUIET = new Nature(17,"Quiet", "spa", "spe");
+		final Nature JOLLY = new Nature(13,"Jolly", Stat.SPE, Stat.SPA);
+		final Nature NAIVE = new Nature(14,"Naive", Stat.SPE, Stat.SPD);
+		final Nature MODEST = new Nature(15,"Modest", Stat.SPA, Stat.ATK);
+		final Nature MILD = new Nature(16,"Mild", Stat.SPA, Stat.DEF);
+		final Nature QUIET = new Nature(17,"Quiet", Stat.SPA, Stat.SPE);
 		final Nature BASHFUL = new Nature(18, "Bashful", null, null);
-		final Nature RASH = new Nature(19, "Rash", "spa", "spd");
-		final Nature CALM = new Nature(20, "Calm", "spd", "atk");
-		final Nature GENTLE = new Nature(21,"Gentle", "spd", "def");
-		final Nature SASSY = new Nature(22,"Sassy","spd","spe");
-		final Nature CAREFUL = new Nature(23,"Careful","spd","spa");
+		final Nature RASH = new Nature(19, "Rash", Stat.SPA, Stat.SPD);
+		final Nature CALM = new Nature(20, "Calm", Stat.SPD, Stat.ATK);
+		final Nature GENTLE = new Nature(21,"Gentle", Stat.SPD, Stat.DEF);
+		final Nature SASSY = new Nature(22,"Sassy",Stat.SPD,Stat.SPE);
+		final Nature CAREFUL = new Nature(23,"Careful",Stat.SPD,Stat.SPA);
 		final Nature QUIRKY = new Nature(24,"Quirky",null,null);
 		Nature[] ns = {HARDY, LONELY, BRAVE, ADAMANT, NAUGHTY, BOLD, DOCILE, RELAXED, IMPISH, LAX, TIMID, HASTY, SERIOUS, JOLLY, NAIVE, MODEST, MILD, QUIET, BASHFUL, RASH, CALM, GENTLE, SASSY, CAREFUL, QUIRKY};
 		return Arrays.asList(ns);
@@ -83,27 +83,27 @@ public class Nature {
 	}
 
 
-	public String getPositive() {
+	public Stat getPositive() {
 		return positive;
 	}
 
 
-	public void setPositive(String positive) {
+	public void setPositive(Stat positive) {
 		this.positive = positive;
 	}
 
 
-	public String getNegative() {
+	public Stat getNegative() {
 		return negative;
 	}
 
 
-	public void setNegative(String negative) {
+	public void setNegative(Stat negative) {
 		this.negative = negative;
 	}
 
 
-	public double getMod(String nature) {
+	public double getMod(Stat nature) {
 		if(nature.equals(this.positive)) return 1.1;
 		else if(nature.equals(this.negative)) return 0.9;
 		else return 1;

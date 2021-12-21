@@ -14,12 +14,12 @@ public class Pokemon {
 	private Nature nature;
 	private Type type1;
 	private Type type2;
-	private Move[] moves;
+	private Moveset moves;
 	private Ability ability;
 	private int xp;
 	private int xpToNext;
 	private int lvl;
-	private HashMap<String, Integer> stageMult = new HashMap<>();
+	private HashMap<Stat, Integer> stageMult = new HashMap<>();
 	private Item heldItem;
 	boolean isFlinched = false;
 	boolean isParalyzed = false;
@@ -33,40 +33,41 @@ public class Pokemon {
 	public void setHeldItem(Item heldItem) {
 		this.heldItem = heldItem;
 	}
-	public HashMap<String, Integer> getStageMult() {
+	public HashMap<Stat, Integer> getStageMult() {
 		return stageMult;
 	}
-	public int getStageMult(String stat) {
+	public int getStageMult(Stat stat) {
 		return stageMult.get(stat);
 	}
-	public void setStageMult(String stat, int value) {
+	public void setStageMult(Stat stat, int value) {
 		stageMult.put(stat, value);
 	}
-	public void addStageMult(String stat, int value) {
+	public void addStageMult(Stat stat, int value) {
 		stageMult.put(stat, stageMult.get(stat)+value);
 		String msg = this.getName()+"'s ";
 		switch(stat) {
-		case("atk"):
+		case ATK:
 			msg+="attack ";
 			break;
-		case("def"):
+		case DEF:
 			msg+="defense ";
 			break;
-		case("spa"):
+		case SPA:
 			msg+="special attack ";
 			break;
-		case("spd"):
+		case SPD:
 			msg+="special defense ";
 			break;
-		case("spe"):
+		case SPE:
 			msg+="speed ";
 			break;
-		case("acc"):
+		case ACC:
 			msg+="accuracy ";
 			break;
-		case("eva"):
+		case EVA:
 			msg+="evasiveness ";
 			break;
+		case HP: break;
 		}
 		switch(value) {
 		case(-3):
@@ -95,7 +96,7 @@ public class Pokemon {
 		this(id, "", 1, new Stats(0,0,0,0,0,0), null, null, null, null);
 	}
 
-	public Pokemon(int id, String name, int lvl, Stats stats, Type type1, Type type2, Move[] moves, Ability ability) {
+	public Pokemon(int id, String name, int lvl, Stats stats, Type type1, Type type2, Moveset moves, Ability ability) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -107,16 +108,16 @@ public class Pokemon {
 		this.lvl = lvl;
 		this.xp = 0;
 		this.xpToNext = (int)Math.floor(Math.pow(this.lvl, 3));
-		this.stageMult.put("atk", 0);
-		this.stageMult.put("def", 0);
-		this.stageMult.put("spa", 0);
-		this.stageMult.put("spd", 0);
-		this.stageMult.put("spe", 0);
-		this.stageMult.put("acc", 0);
-		this.stageMult.put("eva", 0);
+		this.stageMult.put(Stat.ATK, 0);
+		this.stageMult.put(Stat.DEF, 0);
+		this.stageMult.put(Stat.SPA, 0);
+		this.stageMult.put(Stat.SPD, 0);
+		this.stageMult.put(Stat.SPE, 0);
+		this.stageMult.put(Stat.ACC, 0);
+		this.stageMult.put(Stat.EVA, 0);
 		this.setEvs(new Stats(0,0,0,0,0,0));
 		this.setIvs(new Stats(0,0,0,0,0,0));
-		this.hp = (int)getStat("hp");
+		this.hp = (int)getStat(Stat.HP);
 	}
 	
 	public int getId() {
@@ -165,16 +166,15 @@ public class Pokemon {
 		this.type2 = type2;
 	}
 
-	public Move[] getMoves() {
-		return moves;
+	public Moveset getMoves() {
+		return this.moves;
+	}
+	public Move getMove(int idx) {
+		return this.moves.getMove(idx);
 	}
 
-	public void setMoves(Move[] moves) {
+	public void setMoves(Moveset moves) {
 		this.moves = moves;
-	}
-	
-	public void addMove(Move move, int idx) {
-		this.moves[idx] = move;
 	}
 
 	public Ability getAbility() {
@@ -191,7 +191,7 @@ public class Pokemon {
 
 	public void setIvs(Stats ivs) {
 		this.ivs = ivs;
-		if(this.evs!=null) this.hp=(int)this.getStat("hp");
+		if(this.evs!=null) this.hp=(int)this.getStat(Stat.HP);
 	}
 
 	public Stats getEvs() {
@@ -200,7 +200,7 @@ public class Pokemon {
 
 	public void setEvs(Stats evs) {
 		this.evs = evs;
-		if(this.ivs!=null) this.hp=(int)this.getStat("hp");
+		if(this.ivs!=null) this.hp=(int)this.getStat(Stat.HP);
 	}
 
 	public Nature getNature() {
@@ -235,58 +235,58 @@ public class Pokemon {
 		this.lvl = lvl;
 	}
 	
-	public double getStat(String stat) {
+	public double getStat(Stat stat) {
 		return Stats.getStat(this, stat);
 	}
-	public void setStat(String stat, int value) {
+	public void setStat(Stat stat, int value) {
 		Stats s = this.getStats();
 		switch(stat) {
-		case("hp"):
+		case HP:
 			s.setHp(value);
 			break;
-		case("atk"):
+		case ATK:
 			s.setAtk(value);
 			break;
-		case("def"):
+		case DEF:
 			s.setDef(value);
 			break;
-		case("spa"):
+		case SPA:
 			s.setSpa(value);
 			break;
-		case("spd"):
+		case SPD:
 			s.setSpd(value);
 			break;
-		case("spe"):
+		case SPE:
 			s.setSpe(value);
 			break;
 		}
 	}
 	
-	public void addEv(String stat, int value) {
+	public void addEv(Stat stat, int value) {
 		Stats s = this.getEvs();
 		int v;
 		switch(stat) {
-		case("hp"):
+		case HP:
 			v = s.getHp();
 			s.setHp(v + value);
 			break;
-		case("atk"):
+		case ATK:
 			v = s.getAtk();
 			s.setAtk(v + value);
 			break;
-		case("def"):
+		case DEF:
 			v = s.getDef();
 			s.setDef(v + value);
 			break;
-		case("spa"):
+		case SPA:
 			v = s.getSpa();
 			s.setSpa(v + value);
 			break;
-		case("spd"):
+		case SPD:
 			v = s.getSpd();
 			s.setSpd(v + value);
 			break;
-		case("spe"):
+		case SPE:
 			v = s.getSpe();
 			s.setSpe(v + value);
 			break;
@@ -303,7 +303,7 @@ public class Pokemon {
 		if(r < prob && this.isParalyzed==false) {
 			this.isParalyzed=true;
 			System.out.println(this.getName()+" was paralyzed! It may be unable to move.");
-			this.setStat("spe", (int)this.getStat("spe")/2);
+			this.setStat(Stat.SPE, (int)this.getStat(Stat.SPE)/2);
 		}
 		else if (r < prob) System.out.println(this.getName()+" is already paralyzed.");
 	}
@@ -313,7 +313,7 @@ public class Pokemon {
 		if(r < prob && this.isBurned==false) {
 			this.isBurned=true;
 			System.out.println(this.getName()+" has been burned!");
-			this.setStat("atk", (int)this.getStat("atk")/2);
+			this.setStat(Stat.ATK, (int)this.getStat(Stat.ATK)/2);
 		}
 	}
 	
@@ -355,7 +355,7 @@ public class Pokemon {
 	
 	public void conditionCheck() {
 		if(this.isBurned || this.isPoisoned) {
-			double value = this.getStat("hp")/16f;
+			double value = this.getStat(Stat.HP)/16f;
 			this.setHp((int)(this.getHp()-value));
 		}
 	}

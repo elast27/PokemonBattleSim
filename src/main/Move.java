@@ -18,12 +18,13 @@ public class Move {
 	final static Move QUICK_ATTACK = new Move("Quick Attack", Type.NORMAL, 40, 100, 30, DamageType.PHYSICAL, "desc");
 	final static Move ICE_BEAM = new Move("Ice Beam", Type.ICE, 80, 100, 15, DamageType.SPECIAL, "desc");
 	final static Move EARTHQUAKE = new Move("Earthquake", Type.GROUND, 100, 100, 15, DamageType.PHYSICAL, "desc");
-	final static Move SWORDS_DANCE = new StatusMove("Swords Dance", Type.NORMAL, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult("atk", 2), true);
-	final static Move TAIL_GLOW = new StatusMove("Tail Glow", Type.BUG, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult("spa", 3), true);
-	final static Move LEER = new StatusMove("Leer", Type.NORMAL, 0, 100, 40, DamageType.STATUS, "desc", p->p.addStageMult("def", -1), false);
-	final static Move SCREECH = new StatusMove("Screech", Type.NORMAL, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult("def", -2), false);
+	final static Move SWORDS_DANCE = new StatusMove("Swords Dance", Type.NORMAL, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult(Stat.ATK, 2), true);
+	final static Move TAIL_GLOW = new StatusMove("Tail Glow", Type.BUG, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult(Stat.SPA, 3), true);
+	final static Move LEER = new StatusMove("Leer", Type.NORMAL, 0, 100, 40, DamageType.STATUS, "desc", p->p.addStageMult(Stat.DEF, -1), false);
+	final static Move SCREECH = new StatusMove("Screech", Type.NORMAL, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult(Stat.DEF, -2), false);
 	final static Move BITE = new EffectMove("Bite", Type.DARK, 60,100,25,DamageType.PHYSICAL,"desc", p->p.setFlinched(0.3));
-	final static Move ACID_ARMOR = new StatusMove("Acid Armor", Type.POISON, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult("def", 2), true);
+	final static Move ACID_ARMOR = new StatusMove("Acid Armor", Type.POISON, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult(Stat.DEF, 2), true);
+	final static Move GROWL = new StatusMove("Growl", Type.NORMAL, 0, 100, 40, DamageType.STATUS, "desc", p->p.addStageMult(Stat.ATK, -1), false);
 	
 	public Move(String name, Type type, int power, int acc, int pp, DamageType damageType, String desc) {
 		super();

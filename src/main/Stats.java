@@ -53,26 +53,26 @@ public class Stats {
 		this.spe = spe;
 	}
 	
-	public static double getStat(Pokemon p, String stat) {
+	public static double getStat(Pokemon p, Stat stat) {
 		switch(stat) {
-		case("hp"):
+		case HP:
 			return calculateHP(p, p.getStats().getHp(), p.getEvs().getHp(), p.getIvs().getHp());
-		case("atk"):
+		case ATK:
 			return calculateStat(p, p.getStats().getAtk(), p.getEvs().getAtk(), p.getIvs().getAtk(), stat);
-		case("def"):
+		case DEF:
 			return calculateStat(p, p.getStats().getDef(), p.getEvs().getDef(), p.getIvs().getDef(), stat);
-		case("spa"):
+		case SPA:
 			return calculateStat(p, p.getStats().getSpa(), p.getEvs().getSpa(), p.getIvs().getSpa(), stat);
-		case("spd"):
+		case SPD:
 			return calculateStat(p, p.getStats().getSpd(), p.getEvs().getSpd(), p.getIvs().getSpd(), stat);
-		case("spe"):
+		case SPE:
 			return calculateStat(p, p.getStats().getSpe(), p.getEvs().getSpe(), p.getIvs().getSpe(), stat);
 		default:
 			return 1;
 		}
 	}
 	
-	public static double calculateStat(Pokemon p, int base, int ev, int iv, String stat) {
+	public static double calculateStat(Pokemon p, int base, int ev, int iv, Stat stat) {
 		double num = ((2*base+iv+(ev/4))*p.getLvl());
 		return (((num/100)+5)*p.getNature().getMod(stat))*calculateStageMult(p, stat);
 	}
@@ -81,7 +81,7 @@ public class Stats {
 		return (num/100)+p.getLvl()+10;
 	}
 	
-	public static double calculateStageMult(Pokemon p, String stat) {
+	public static double calculateStageMult(Pokemon p, Stat stat) {
 		switch(p.getStageMult().get(stat)) {
 		case(-6): return (2.0/8.0);
 		case(-5): return (2.0/7.0);
