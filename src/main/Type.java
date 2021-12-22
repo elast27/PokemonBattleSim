@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Type {
@@ -8,7 +9,15 @@ public class Type {
 	private ArrayList<String> weak;
 	private ArrayList<String> strong;
 	private String noEffect;
+	private Color labelColor;
 	
+	
+	public Color getLabelColor() {
+		return labelColor;
+	}
+	public void setLabelColor(Color labelColor) {
+		this.labelColor = labelColor;
+	}
 	public String getType() {
 		return type;
 	}
@@ -72,6 +81,7 @@ public class Type {
 		normal.setStrong(new ArrayList<>());
 		normal.setResistant(new ArrayList<>());
 		normal.setNoEffect("Ghost");
+		normal.setLabelColor(Color.lightGray);
 		
 		ArrayList<String> flyingWeak = new ArrayList<>();
 		flyingWeak.add("Electric");
@@ -86,6 +96,7 @@ public class Type {
 		flying.setResistant(flyingResist);
 		flying.setStrong(flyingStrong);
 		flying.setWeak(flyingWeak);
+		flying.setLabelColor(new Color(150, 217, 224));
 		
 		ArrayList<String> fightingWeak = new ArrayList<>();
 		fightingWeak.add("Flying");
@@ -105,6 +116,7 @@ public class Type {
 		fighting.setStrong(fightingStrong);
 		fighting.setWeak(fightingWeak);
 		fighting.setNoEffect("Ghost");
+		fighting.setLabelColor(new Color(125, 79, 26));
 		
 		ArrayList<String> elecWeak = new ArrayList<>();
 		elecWeak.add("Ground");
@@ -119,6 +131,7 @@ public class Type {
 		electric.setStrong(elecStrong);
 		electric.setResistant(elecResist);
 		electric.setNoEffect("Ground");
+		electric.setLabelColor(Color.yellow);
 		
 		ArrayList<String> waterWeak = new ArrayList<>();
 		ArrayList<String> waterStrong = new ArrayList<>();
@@ -135,6 +148,7 @@ public class Type {
 		water.setResistant(waterResist);
 		water.setStrong(waterStrong);
 		water.setWeak(waterWeak);
+		water.setLabelColor(new Color(42, 94, 235));
 		
 		ArrayList<String> fireWeak = new ArrayList<>();
 		ArrayList<String> fireStrong = new ArrayList<>();
@@ -154,6 +168,7 @@ public class Type {
 		fire.setResistant(fireResist);
 		fire.setStrong(fireStrong);
 		fire.setWeak(fireWeak);
+		fire.setLabelColor(Color.red);
 		
 		ArrayList<String> grassWeak = new ArrayList<>();
 		ArrayList<String> grassStrong = new ArrayList<>();
@@ -173,6 +188,7 @@ public class Type {
 		grass.setResistant(grassResist);
 		grass.setStrong(grassStrong);
 		grass.setWeak(grassWeak);
+		grass.setLabelColor(Color.green);
 	
 		ArrayList<String> rockWeak = new ArrayList<>();
 		ArrayList<String> rockStrong = new ArrayList<>();
@@ -193,6 +209,7 @@ public class Type {
 		rock.setResistant(rockResist);
 		rock.setStrong(rockStrong);
 		rock.setWeak(rockWeak);
+		rock.setLabelColor(new Color(117, 106, 86));
 		
 		ArrayList<String> groundWeak = new ArrayList<>();
 		groundWeak.add("Water");
@@ -211,6 +228,7 @@ public class Type {
 		ground.setResistant(groundResist);
 		ground.setStrong(groundStrong);
 		ground.setWeak(groundWeak);
+		ground.setLabelColor(new Color(84, 62, 22));
 		
 		ArrayList<String> iceWeak = new ArrayList<>();
 		ArrayList<String> iceStrong = new ArrayList<>();
@@ -227,6 +245,7 @@ public class Type {
 		ice.setResistant(iceResist);
 		ice.setStrong(iceStrong);
 		ice.setWeak(iceWeak);
+		ice.setLabelColor(new Color(0, 255, 255));
 		
 		ArrayList<String> steelWeak = new ArrayList<>();
 		ArrayList<String> steelStrong = new ArrayList<>();
@@ -248,6 +267,7 @@ public class Type {
 		steel.setResistant(steelResist);
 		steel.setStrong(steelStrong);
 		steel.setWeak(steelWeak);
+		steel.setLabelColor(Color.gray);
 		
 		ArrayList<String> dragonWeak = new ArrayList<>();
 		ArrayList<String> dragonStrong = new ArrayList<>();
@@ -264,6 +284,7 @@ public class Type {
 		dragon.setResistant(dragonResist);
 		dragon.setStrong(dragonStrong);
 		dragon.setWeak(dragonWeak);
+		dragon.setLabelColor(new Color(35, 0, 150));
 		
 		ArrayList<String> fairyWeak = new ArrayList<>();
 		ArrayList<String> fairyStrong = new ArrayList<>();
@@ -279,6 +300,7 @@ public class Type {
 		fairy.setResistant(fairyResist);
 		fairy.setStrong(fairyStrong);
 		fairy.setWeak(fairyWeak);
+		fairy.setLabelColor(new Color(255, 212, 249));
 
 		ArrayList<String> bugWeak = new ArrayList<>();
 		ArrayList<String> bugStrong = new ArrayList<>();
@@ -295,6 +317,7 @@ public class Type {
 		bug.setResistant(bugResist);
 		bug.setStrong(bugStrong);
 		bug.setWeak(bugWeak);
+		bug.setLabelColor(new Color(110, 125, 74));
 		
 		ArrayList<String> darkWeak = new ArrayList<>();
 		ArrayList<String> darkStrong = new ArrayList<>();
@@ -309,6 +332,7 @@ public class Type {
 		dark.setResistant(darkResist);
 		dark.setStrong(darkStrong);
 		dark.setWeak(darkWeak);
+		dark.setLabelColor(Color.DARK_GRAY);
 	
 		ArrayList<String> ghostWeak = new ArrayList<>();
 		ArrayList<String> ghostStrong = new ArrayList<>();
@@ -323,6 +347,7 @@ public class Type {
 		ghost.setResistant(ghostResist);
 		ghost.setStrong(ghostStrong);
 		ghost.setWeak(ghostWeak);
+		ghost.setLabelColor(new Color(113, 62, 181));
 		
 		ArrayList<String> poisonWeak = new ArrayList<>();
 		ArrayList<String> poisonStrong = new ArrayList<>();
@@ -339,6 +364,7 @@ public class Type {
 		poison.setResistant(poisonResist);
 		poison.setStrong(poisonStrong);
 		poison.setWeak(poisonWeak);
+		poison.setLabelColor(new Color(186, 112, 255));
 		
 		ArrayList<String> psyWeak = new ArrayList<>();
 		ArrayList<String> psyStrong = new ArrayList<>();
@@ -354,6 +380,7 @@ public class Type {
 		psychic.setResistant(psyResist);
 		psychic.setStrong(psyStrong);
 		psychic.setWeak(psyWeak);
+		psychic.setLabelColor(new Color(217, 22, 204));
 		
 		ArrayList<Type> types = new ArrayList<>();
 		types.add(normal);
