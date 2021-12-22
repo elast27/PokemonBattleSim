@@ -69,6 +69,17 @@ public class Pokemon {
 			break;
 		case HP: break;
 		}
+		if (stageMult.get(stat)>6) {
+			msg+="won't go any higher!";
+			stageMult.put(stat, 6);
+			System.out.println(msg);
+			return;
+		} else if (stageMult.get(stat)<-6) {
+			msg+="won't go any lower!";
+			stageMult.put(stat, -6);
+			System.out.println(msg);
+			return;
+		}
 		switch(value) {
 		case(-3):
 			msg+="drastically fell!";
