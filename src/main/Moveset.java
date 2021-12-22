@@ -29,22 +29,27 @@ public class Moveset {
 		switch(idx) {
 		case 0:
 			move1 = move;
+			break;
 		case 1:
 			move2 = move;
+			break;
 		case 2:
 			move3 = move;
+			break;
 		case 3:
 			move4 = move;
+			break;
 		default: return;
 		}
 	}
 
-	public Moveset(Move move1, Move move2, Move move3, Move move4) {
+	public Moveset(Move... moves) {
 		super();
-		this.move1 = move1;
-		this.move2 = move2;
-		this.move3 = move3;
-		this.move4 = move4;
+		int i = 0;
+		for(Move m : moves) {
+			this.addMove(m, i);
+			i++;
+		}
 	}
 
 }
