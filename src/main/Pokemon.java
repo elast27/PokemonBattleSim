@@ -42,6 +42,10 @@ public class Pokemon {
 	public void setStageMult(Stat stat, int value) {
 		stageMult.put(stat, value);
 	}
+	public void addStageMult(Stat stat, int value, double r) {
+		double p = Math.random();
+		if(p<r) this.addStageMult(stat, value);
+	}
 	public void addStageMult(Stat stat, int value) {
 		stageMult.put(stat, stageMult.get(stat)+value);
 		String msg = this.getName()+"'s ";

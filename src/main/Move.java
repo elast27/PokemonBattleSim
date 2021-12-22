@@ -25,7 +25,7 @@ public class Move {
 	final static Move BITE = new EffectMove("Bite", Type.DARK, 60,100,25,DamageType.PHYSICAL,"desc", p->p.setFlinched(0.3));
 	final static Move ACID_ARMOR = new StatusMove("Acid Armor", Type.POISON, 0, 100, 10, DamageType.STATUS, "desc", p->p.addStageMult(Stat.DEF, 2), true);
 	final static Move GROWL = new StatusMove("Growl", Type.NORMAL, 0, 100, 40, DamageType.STATUS, "desc", p->p.addStageMult(Stat.ATK, -1), false);
-	final static Move BUBBLE_BEAM = new Move("Bubble Beam", Type.WATER, 65, 100, 20, DamageType.SPECIAL, "A spray of bubbles is forcefully ejected at the target. This may also lower its Speed stat.");
+	final static Move BUBBLE_BEAM = new EffectMove("Bubble Beam", Type.WATER, 65, 100, 20, DamageType.SPECIAL, "A spray of bubbles is forcefully ejected at the target. This may also lower its Speed stat.", p->p.addStageMult(Stat.SPE, -1, 0.1));
 	public Move(String name, Type type, int power, int acc, int pp, DamageType damageType, String desc) {
 		super();
 		this.name = name;
