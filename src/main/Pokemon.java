@@ -118,6 +118,7 @@ public class Pokemon {
 		this.setEvs(new Stats(0,0,0,0,0,0));
 		this.setIvs(new Stats(0,0,0,0,0,0));
 		this.hp = (int)getStat(Stat.HP);
+		this.nature = Nature.HARDY;
 	}
 	
 	public int getId() {
@@ -318,6 +319,7 @@ public class Pokemon {
 	}
 	
 	public void attack(Pokemon defender, Move move) {
+		if(this.getHp()==0) return;
 		if(this.isFlinched) {
 			System.out.println(this.getName()+ " flinched and couldn't move!");
 			this.isFlinched = false;
