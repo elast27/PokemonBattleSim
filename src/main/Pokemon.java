@@ -26,6 +26,7 @@ public class Pokemon {
 	boolean isBurned = false;
 	boolean isPoisoned = false;
 	boolean isAsleep = false;
+	boolean isFrozen = false;
 		
 	public Item getHeldItem() {
 		return heldItem;
@@ -330,6 +331,14 @@ public class Pokemon {
 			this.isBurned=true;
 			System.out.println(this.getName()+" has been burned!");
 			this.setStat(Stat.ATK, (int)this.getStat(Stat.ATK)/2);
+		}
+	}
+	
+	public void setFrozen(double prob) {
+		double r = Math.random();
+		if(r < prob && this.isFrozen==false) {
+			this.isFrozen=true;
+			System.out.println(this.getName()+" has been frozen solid!");
 		}
 	}
 	
