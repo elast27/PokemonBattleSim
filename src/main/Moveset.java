@@ -47,6 +47,7 @@ public class Moveset {
 		super();
 		int i = 0;
 		for(Move m : moves) {
+			if(i==4) return;
 			this.addMove(m, i);
 			i++;
 		}
