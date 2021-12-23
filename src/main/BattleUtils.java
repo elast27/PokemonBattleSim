@@ -44,12 +44,22 @@ public class BattleUtils {
 		return false;
 	}
 	public static void battleTurn(Pokemon p1, Move m1, Pokemon p2, Move m2) {
-		if(p1.getStat(Stat.SPE)>p2.getStat(Stat.SPE)) {
+		if(m1.getPriority() > m2.getPriority()) {
 			p1.attack(p2, m1);
 			if(p2.getHp()>0) p2.attack(p1, m2);
-		} else {
+		}
+		else if(m2.getPriority() > m1.getPriority()) {
 			p2.attack(p1, m2);
 			if(p1.getHp()>0) p1.attack(p2, m1);
+		}
+		else {
+			if(p1.getStat(Stat.SPE)>p2.getStat(Stat.SPE)) {
+				p1.attack(p2, m1);
+				if(p2.getHp()>0) p2.attack(p1, m2);
+			} else {
+				p2.attack(p1, m2);
+				if(p1.getHp()>0) p1.attack(p2, m1);
+			}
 		}
 		endOfTurn(p1,p2);
 	}
