@@ -9,6 +9,12 @@ import main.Move.DamageType;
 @Getter
 @Setter
 public class Pokemon {
+	private enum Condition{FREEZE(0), BURN(0), SLEEP(0), PARALYZE(0), POISON(0), BAD_POISON(1);
+		private int n;
+		private Condition(int n) {
+			this.n = n;
+		}
+		};
 	private int id;
 	private int hp;
 	private String name;
@@ -26,11 +32,7 @@ public class Pokemon {
 	private HashMap<Stat, Integer> stageMult = new HashMap<>();
 	private Item heldItem;
 	boolean isFlinched = false;
-	boolean isParalyzed = false;
-	boolean isBurned = false;
-	boolean isPoisoned = false;
-	boolean isAsleep = false;
-	boolean isFrozen = false;
+	Condition condition = null;
 		
 	public int getStageMult(Stat stat) {
 		return stageMult.get(stat);
@@ -212,8 +214,8 @@ public class Pokemon {
 	
 	public void setParalysis(double prob) {
 		double r = Math.random();
-		if(r < prob && this.isParalyzed==false) {
-			this.isParalyzed=true;
+		if(r < prob && this.condition==null) {
+			this.condition=Condition.PARALYZE;
 			System.out.println(this.getName()+" was paralyzed! It may be unable to move.");
 			this.setStat(Stat.SPE, (int)this.getStat(Stat.SPE)/2);
 		}
@@ -222,8 +224,8 @@ public class Pokemon {
 	
 	public void setBurn(double prob) {
 		double r = Math.random();
-		if(r < prob && this.isBurned==false) {
-			this.isBurned=true;
+		if(r < prob && this.condition==null) {
+			this.condition=Condition.BURN;
 			System.out.println(this.getName()+" has been burned!");
 			this.setStat(Stat.ATK, (int)this.getStat(Stat.ATK)/2);
 		}
@@ -232,9 +234,20 @@ public class Pokemon {
 	public void setFrozen(double prob) {
 		if(this.getType1().getType().equals("Ice") || this.getType2().getType().equals("Ice")) return;
 		double r = Math.random();
-		if(r < prob && this.isFrozen==false) {
-			this.isFrozen=true;
+		if(r < prob && this.condition==null) {
+			this.condition=Condition.FREEZE;
 			System.out.println(this.getName()+" has been frozen solid!");
+		}
+	}
+	
+	public void setPoison(double prob) {
+		
+	}
+	public void setBadPoison(double prob) {
+		double r = Math.random();
+		if(r < prob && this.condition==null) {
+			this.condition=Condition.BAD_POISON;
+			System.out.println(this.getName()+" was badly poisoned!");
 		}
 	}
 	
@@ -245,18 +258,18 @@ public class Pokemon {
 			this.isFlinched = false;
 			return;
 		}
-		if(this.isParalyzed) {
+		if(this.condition==Condition.PARALYZE) {
 			double r = Math.random();
 			if(r < .25) {
 				System.out.println(this.getName()+" is paralyzed. It cannot move!");
 				return;
 			}
 		}
-		if(this.isFrozen) {
+		if(this.condition==Condition.FREEZE) {
 			double r = Math.random();
-			if(r < .2) {
+			if(r < .20) {
 				System.out.println(this.getName()+" thawed out!");
-				this.isFrozen = false;
+				this.condition = null;
 			} else {
 				System.out.println(this.getName()+" is frozen solid!");
 				return;
@@ -271,7 +284,12 @@ public class Pokemon {
 				if(defender.getHp()<=0) {
 					defender.setHp(0);
 					System.out.println(defender.getName() + " fainted");
+					defender.condition=null;
 					return;
+				}
+				if(move.getType().equals(Type.FIRE) && defender.condition == Condition.FREEZE) {
+					defender.condition = null;
+					System.out.println(defender.getName()+" thawed out!");
 				}
 			}
 			if(move instanceof StatusMove) {
@@ -287,9 +305,25 @@ public class Pokemon {
 	}
 	
 	public void conditionCheck() {
-		if(this.isBurned || this.isPoisoned) {
+		if(this.condition == Condition.BURN) {
 			double value = this.getStat(Stat.HP)/16f;
 			this.setHp((int)(this.getHp()-value));
+			System.out.println(this.getName()+" was hurt by its burn.");
+		}
+		if(this.condition == Condition.POISON) {
+			double value = this.getStat(Stat.HP)/16f;
+			this.setHp((int)(this.getHp()-value));
+			System.out.println(this.getName()+" was damaged by poison.");
+		}
+		else if(this.condition == Condition.BAD_POISON) {
+			double value = (this.getStat(Stat.HP) * this.condition.n++)/16f;
+			this.setHp((int)(this.getHp()-value));
+			System.out.println(this.getName()+" was damaged by poison.");
+		}
+		if(this.getHp()<=0) {
+			this.setHp(0);
+			System.out.println(this.getName()+" fainted.");
+			this.condition=null;
 		}
 	}
 }

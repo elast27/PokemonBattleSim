@@ -66,7 +66,7 @@ public class BattleUtils {
 	public static void endOfTurn(Pokemon a, Pokemon b) {
 		a.isFlinched=false;
 		b.isFlinched=false;
-		a.conditionCheck();
-		b.conditionCheck();
+		if(a.getHp()>0) a.conditionCheck();
+		if(b.getHp()>0) b.conditionCheck();
 	}
 }

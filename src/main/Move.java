@@ -34,6 +34,8 @@ public class Move {
 	final static Move GROWL = new StatusMove("Growl", Type.NORMAL, 0, 100, 40, DamageType.STATUS, "The user growls in an endearing way, making opposing Pokémon less wary. This lowers their Attack stats.", p->p.addStageMult(Stat.ATK, -1), false);
 	final static Move BUBBLE_BEAM = new EffectMove("Bubble Beam", Type.WATER, 65, 100, 20, DamageType.SPECIAL, "A spray of bubbles is forcefully ejected at the target. This may also lower its Speed stat.", p->p.addStageMult(Stat.SPE, -1, 0.1));
 	final static Move CHARGE = new StatusMove("Charge", Type.ELECTRIC, 0, 100, 20, DamageType.STATUS, "The user boosts the power of the Electric move it uses next. It also raises the user's Sp. Def stat.", p->p.addStageMult(Stat.SPA, 1), true);
+	final static Move TOXIC = new EffectMove("Toxic", Type.POISON, 0, 90, 10, DamageType.STATUS, "A move that leaves the target badly poisoned. Its poison damage worsens every turn", p->p.setBadPoison(1));
+	final static Move EMBER = new EffectMove("Ember", Type.FIRE, 40, 100, 20, DamageType.SPECIAL,"desc", p->p.setBurn(0.2));
 	
 	public Move(String name, Type type, int power, int acc, int pp, DamageType damageType, String desc) {
 		super();
