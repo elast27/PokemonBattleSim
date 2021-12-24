@@ -335,6 +335,7 @@ public class Pokemon {
 	}
 	
 	public void setFrozen(double prob) {
+		if(this.getType1().getType().equals("Ice") || this.getType2().getType().equals("Ice")) return;
 		double r = Math.random();
 		if(r < prob && this.isFrozen==false) {
 			this.isFrozen=true;
@@ -356,6 +357,16 @@ public class Pokemon {
 				return;
 			}
 		}
+		if(this.isFrozen) {
+			double r = Math.random();
+			if(r < .2) {
+				System.out.println(this.getName()+" thawed out!");
+				this.isFrozen = false;
+			} else {
+				System.out.println(this.getName()+" is frozen solid!");
+				return;
+			}
+		}
 		System.out.println(this.getName() + " used " + move.getName());
 		if(BattleUtils.moveHits(this, defender, move)) {
 			if(move.getDamageType()!=DamageType.STATUS) {
@@ -365,6 +376,7 @@ public class Pokemon {
 				if(defender.getHp()<=0) {
 					defender.setHp(0);
 					System.out.println(defender.getName() + " fainted");
+					return;
 				}
 			}
 			if(move instanceof StatusMove) {
