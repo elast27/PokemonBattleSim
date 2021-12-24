@@ -3,51 +3,19 @@ package main;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Type {
-	private String type;
-	private ArrayList<String> resistant;
-	private ArrayList<String> weak;
-	private ArrayList<String> strong;
-	private String noEffect;
-	private Color labelColor;
-	
-	
-	public Color getLabelColor() {
-		return labelColor;
-	}
-	public void setLabelColor(Color labelColor) {
-		this.labelColor = labelColor;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public ArrayList<String> getResistant() {
-		return resistant;
-	}
-	public void setResistant(ArrayList<String> resistant) {
-		this.resistant = resistant;
-	}
-	public ArrayList<String> getWeak() {
-		return weak;
-	}
-	public void setWeak(ArrayList<String> weak) {
-		this.weak = weak;
-	}
-	public ArrayList<String> getStrong() {
-		return strong;
-	}
-	public void setStrong(ArrayList<String> strong) {
-		this.strong = strong;
-	}
-	public String getNoEffect() {
-		return noEffect;
-	}
-	public void setNoEffect(String noEffect) {
-		this.noEffect = noEffect;
-	}
+	private @NonNull String type;
+	private @NonNull ArrayList<String> resistant;
+	private @NonNull ArrayList<String> weak;
+	private @NonNull ArrayList<String> strong;
+	private @NonNull String noEffect;
+	private @NonNull Color labelColor;
 	
 	public Type(String type) {
 		super();

@@ -1,13 +1,19 @@
 package main;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Move {
-	private String name;
-	private Type type;
+	private @NonNull String name;
+	private @NonNull Type type;
 	private int power;
 	private int acc;
 	private int pp;
-	private DamageType damageType;
-	private String desc;
+	private @NonNull DamageType damageType;
+	private @NonNull String desc;
 	private int priority;
 	
 	
@@ -45,57 +51,4 @@ public class Move {
 		this(name,type,power,acc,pp,damageType,desc);
 		this.priority = priority;
 	}
-	
-	public int getPriority() {
-		return priority;
-	}
-
-	public void setPriority(int priority) {
-		this.priority = priority;
-	}
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public Type getType() {
-		return type;
-	}
-	public void setType(Type type) {
-		this.type = type;
-	}
-	public int getPower() {
-		return power;
-	}
-	public void setPower(int power) {
-		this.power = power;
-	}
-	public int getAcc() {
-		return acc;
-	}
-	public void setAcc(int acc) {
-		this.acc = acc;
-	}
-	public int getPP() {
-		return pp;
-	}
-	public void setPP(int pp) {
-		this.pp = pp;
-	}	
-	public DamageType getDamageType() {
-		return damageType;
-	}
-	public void setDamageType(DamageType damageType) {
-		this.damageType = damageType;
-	}
-	public String getDesc() {
-		return desc;
-	}
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
-	
-	
 }

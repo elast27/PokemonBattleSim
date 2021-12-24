@@ -2,8 +2,12 @@ package main;
 
 import java.util.HashMap;
 
+import lombok.Getter;
+import lombok.Setter;
 import main.Move.DamageType;
 
+@Getter
+@Setter
 public class Pokemon {
 	private int id;
 	private int hp;
@@ -28,15 +32,6 @@ public class Pokemon {
 	boolean isAsleep = false;
 	boolean isFrozen = false;
 		
-	public Item getHeldItem() {
-		return heldItem;
-	}
-	public void setHeldItem(Item heldItem) {
-		this.heldItem = heldItem;
-	}
-	public HashMap<Stat, Integer> getStageMult() {
-		return stageMult;
-	}
 	public int getStageMult(Stat stat) {
 		return stageMult.get(stat);
 	}
@@ -137,73 +132,8 @@ public class Pokemon {
 		this.nature = Nature.HARDY;
 	}
 	
-	public int getId() {
-		return id;
-	}
-
-	public int getHp() {
-		return hp;
-	}
-	public void setHp(int hp) {
-		this.hp = hp;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Stats getStats() {
-		return stats;
-	}
-
-	public void setStats(Stats stats) {
-		this.stats = stats;
-	}
-
-	public Type getType1() {
-		return type1;
-	}
-
-	public void setType1(Type type1) {
-		this.type1 = type1;
-	}
-
-	public Type getType2() {
-		return type2;
-	}
-
-	public void setType2(Type type2) {
-		this.type2 = type2;
-	}
-
-	public Moveset getMoves() {
-		return this.moves;
-	}
 	public Move getMove(int idx) {
 		return this.moves.getMove(idx);
-	}
-
-	public void setMoves(Moveset moves) {
-		this.moves = moves;
-	}
-
-	public Ability getAbility() {
-		return ability;
-	}
-
-	public void setAbility(Ability ability) {
-		this.ability = ability;
-	}
-
-	public Stats getIvs() {
-		return ivs;
 	}
 
 	public void setIvs(Stats ivs) {
@@ -211,50 +141,15 @@ public class Pokemon {
 		if(this.evs!=null) this.hp=(int)this.getStat(Stat.HP);
 	}
 
-	public Stats getEvs() {
-		return evs;
-	}
-
 	public void setEvs(Stats evs) {
 		this.evs = evs;
 		if(this.ivs!=null) this.hp=(int)this.getStat(Stat.HP);
-	}
-
-	public Nature getNature() {
-		return nature;
-	}
-
-	public void setNature(Nature nature) {
-		this.nature = nature;
-	}
-
-	public int getXp() {
-		return xp;
-	}
-
-	public void setXp(int xp) {
-		this.xp = xp;
-	}
-
-	public int getXpToNext() {
-		return xpToNext;
-	}
-
-	public void setXpToNext(int xpToNext) {
-		this.xpToNext = xpToNext;
-	}
-
-	public int getLvl() {
-		return lvl;
-	}
-
-	public void setLvl(int lvl) {
-		this.lvl = lvl;
 	}
 	
 	public double getStat(Stat stat) {
 		return Stats.getStat(this, stat);
 	}
+	
 	public void setStat(Stat stat, int value) {
 		Stats s = this.getStats();
 		switch(stat) {
