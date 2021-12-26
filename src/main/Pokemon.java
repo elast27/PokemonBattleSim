@@ -279,6 +279,7 @@ public class Pokemon {
 		if(BattleUtils.moveHits(this, defender, move)) {
 			if(move.getDamageType()!=DamageType.STATUS) {
 				double damage = BattleUtils.damageCalc(this, move, defender);
+				System.out.println(damage);
 				defender.setHp((int)(defender.getHp()-damage));
 				if(damage == 0) return;
 				if(defender.getHp()<=0) {

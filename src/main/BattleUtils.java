@@ -4,6 +4,7 @@ public class BattleUtils {
 	public static double damageCalc(Pokemon attacker, Move move, Pokemon defender) {
 		double A = 0;
 		double B = 0;
+		double extra = 1;
 		double random = Math.random() * (0.15)+0.85;
 		double stab = (move.getType().equals(attacker.getType1()) || move.getType().equals(attacker.getType2())) ? 1.5 : 1;
 		double typeEffect = 1;
@@ -22,6 +23,18 @@ public class BattleUtils {
 			if(defender.getType2().getWeak().contains(move.getType().getType())) typeEffect *= 2;
 			if(defender.getType2().getResistant().contains(move.getType().getType())) typeEffect *= 0.5;
 		}
+		if(typeEffect > 1) {
+			if(defender.getHeldItem()!=null) {
+				if(defender.getHeldItem() instanceof SuperEffectiveBerry) {
+					SuperEffectiveBerry berry = (SuperEffectiveBerry)defender.getHeldItem();
+					if(berry.getEffect().apply(move)) {
+						System.out.println(defender.getName()+"'s "+defender.getHeldItem().getName()+" reduced the effect of "+move.getName());
+						extra = 0.5;
+						defender.setHeldItem(null);
+					}
+				}
+			}
+		}
 		if(move.getDamageType()==Move.DamageType.PHYSICAL) {
 			A = attacker.getStat(Stat.ATK);
 			B = defender.getStat(Stat.DEF);
@@ -31,7 +44,7 @@ public class BattleUtils {
 		}
 		if(typeEffect > 1) System.out.println("It's super effective!");
 		else if (typeEffect < 1) System.out.println("It's not very effective...");
-		return ((((((2*attacker.getLvl()/5)+2)*move.getPower()*(A/B))/50)+2)* random * stab * typeEffect);
+		return ((((((2*attacker.getLvl()/5)+2)*move.getPower()*(A/B))/50)+2)* random * stab * typeEffect)*extra;
 	}
 	public static boolean moveHits(Pokemon attacker, Pokemon defender, Move move) {
 		int stageMod = attacker.getStageMult(Stat.ACC) - defender.getStageMult(Stat.EVA);

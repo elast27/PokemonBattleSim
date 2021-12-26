@@ -85,12 +85,12 @@ public class UI extends JFrame {
 		oppHP.setBackground(Color.red);
 		contentPane.add(oppHP);
 		
-		JLabel lblNewLabel_7 = new JLabel(opponent.getName());
+		JLabel lblNewLabel_7 = new JLabel(opponent.getName()+" Lv."+opponent.getLvl());
 		lblNewLabel_7.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_7.setBounds(178, 10, 168, 20);
 		contentPane.add(lblNewLabel_7);
 		
-		JLabel lblNewLabel_8 = new JLabel(p.getName());
+		JLabel lblNewLabel_8 = new JLabel(p.getName()+ " Lv."+p.getLvl());
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_8.setBounds(469, 270, 176, 20);
 		contentPane.add(lblNewLabel_8);
