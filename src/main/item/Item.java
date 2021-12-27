@@ -12,4 +12,5 @@ import lombok.Setter;
 public class Item {
 	String name;
 	String desc;
+	ItemEffect effect;
 }

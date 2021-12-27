@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import lombok.Getter;
 import lombok.Setter;
+import main.item.HealBerry;
 import main.item.Item;
 import main.move.EffectMove;
 import main.move.Move;
@@ -331,6 +332,19 @@ public class Pokemon {
 			this.setHp(0);
 			System.out.println(this.getName()+" fainted.");
 			this.condition=null;
+		}
+		if(this.heldItem!=null) {
+			Item item = this.getHeldItem();
+			if(item instanceof HealBerry) {
+				double v = ((HealBerry) item).getBerryeffect().apply(this);
+				if(v < 1 && v > 0) {
+					this.setHp((int)(this.getHp()+(this.getStat(Stat.HP)*v)));
+				} else {
+					this.setHp((int)(this.getHp()+v));
+				}
+				System.out.println(this.getName()+" was healed by its "+this.getHeldItem().getName());
+				this.setHeldItem(null);
+			}
 		}
 	}
 }

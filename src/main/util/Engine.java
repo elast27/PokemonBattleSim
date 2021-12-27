@@ -1,6 +1,7 @@
 package main.util;
 
 import main.item.Berry;
+import main.item.Plate;
 import main.move.Move;
 import main.move.Moveset;
 import main.pokemon.Ability;
@@ -15,6 +16,7 @@ public class Engine {
 		Manaphy.setEvs(new Stats(20,0,5,100,0,130));
 		Manaphy.setIvs(new Stats(15,15,15,15,15,15));
 		Manaphy.setNature(Nature.RASH);
+		Manaphy.setHeldItem(Berry.SITRUS_BERRY);
 		
 		Pokemon Talonflame = new Pokemon(663, "Talonflame", 45, new Stats(78,81,71,74,69,126), Type.FIRE, Type.FLYING, null, Ability.KEEN_EYE);
 		
@@ -22,7 +24,7 @@ public class Engine {
 		Garchomp.setNature(Nature.ADAMANT);
 		Garchomp.setIvs(new Stats(24,12,30,16,23,5));
 		Garchomp.setEvs(new Stats(74,190,91,48,84,23));
-		Garchomp.setHeldItem(Berry.YACHE_BERRY);
+		Garchomp.setHeldItem(Berry.ORAN_BERRY);
 		
 		Pokemon Pikachu = new Pokemon(25, "Pikachu", 100 ,new Stats(35,55,40,50,50,90), Type.ELECTRIC, null, new Moveset(Move.GROWL, Move.QUICK_ATTACK), Ability.STATIC);
 		

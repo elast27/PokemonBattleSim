@@ -1,5 +1,7 @@
 package main.util;
 
+import main.item.Item;
+import main.item.Plate;
 import main.item.SuperEffectiveBerry;
 import main.move.Move;
 import main.pokemon.Pokemon;
@@ -37,6 +39,14 @@ public class BattleUtils {
 						extra = 0.5;
 						defender.setHeldItem(null);
 					}
+				}
+			}
+		}
+		if(attacker.getHeldItem()!=null) {
+			Item item = attacker.getHeldItem();
+			if(item instanceof Plate) {
+				if(item.getEffect().apply(move)) {
+					extra = 1.2;
 				}
 			}
 		}
