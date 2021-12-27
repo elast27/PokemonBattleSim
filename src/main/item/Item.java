@@ -1,4 +1,4 @@
-package main;
+package main.item;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

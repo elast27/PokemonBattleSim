@@ -1,10 +1,16 @@
-package main;
+package main.pokemon;
 
 import java.util.HashMap;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.Move.DamageType;
+import main.item.Item;
+import main.move.EffectMove;
+import main.move.Move;
+import main.move.Move.DamageType;
+import main.move.Moveset;
+import main.move.StatusMove;
+import main.util.BattleUtils;
 
 @Getter
 @Setter
@@ -279,7 +285,6 @@ public class Pokemon {
 		if(BattleUtils.moveHits(this, defender, move)) {
 			if(move.getDamageType()!=DamageType.STATUS) {
 				double damage = BattleUtils.damageCalc(this, move, defender);
-				System.out.println(damage);
 				defender.setHp((int)(defender.getHp()-damage));
 				if(damage == 0) return;
 				if(defender.getHp()<=0) {
@@ -306,6 +311,7 @@ public class Pokemon {
 	}
 	
 	public void conditionCheck() {
+		this.isFlinched=false;
 		if(this.condition == Condition.BURN) {
 			double value = this.getStat(Stat.HP)/16f;
 			this.setHp((int)(this.getHp()-value));

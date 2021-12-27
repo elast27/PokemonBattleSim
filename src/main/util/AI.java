@@ -1,10 +1,13 @@
-package main;
+package main.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import main.Move.DamageType;
+import main.move.Move;
+import main.move.Move.DamageType;
+import main.pokemon.Pokemon;
+import main.pokemon.Stat;
 
 public class AI {
 	private Pokemon p;

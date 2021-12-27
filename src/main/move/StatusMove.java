@@ -1,4 +1,6 @@
-package main;
+package main.move;
+
+import main.pokemon.Type;
 
 public class StatusMove extends Move {
 	StatusMoveEffect e;

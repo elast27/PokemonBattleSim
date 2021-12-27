@@ -1,4 +1,4 @@
-package main;
+package main.move;
 
 public class Moveset {
 	private Move move1;

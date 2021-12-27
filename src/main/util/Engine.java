@@ -1,4 +1,13 @@
-package main;
+package main.util;
+
+import main.item.Berry;
+import main.move.Move;
+import main.move.Moveset;
+import main.pokemon.Ability;
+import main.pokemon.Nature;
+import main.pokemon.Pokemon;
+import main.pokemon.Stats;
+import main.pokemon.Type;
 
 public class Engine {	
 	public static Pair<Pokemon,Pokemon> setup() {

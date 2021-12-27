@@ -1,4 +1,7 @@
-package main;
+package main.item;
+
+import main.move.Move;
+import main.pokemon.Type;
 
 public class Berry extends Item {
 	BerryEffect effect;

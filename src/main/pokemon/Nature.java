@@ -1,4 +1,4 @@
-package main;
+package main.pokemon;
 
 import java.util.Arrays;
 import java.util.List;

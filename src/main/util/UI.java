@@ -1,9 +1,7 @@
-package main;
+package main.util;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.EventQueue;
-import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -14,8 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
+
+import main.pokemon.Pokemon;
+import main.pokemon.Stat;
 
 public class UI extends JFrame {
 	private static Pokemon p;

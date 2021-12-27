@@ -1,4 +1,4 @@
-package main;
+package main.pokemon;
 
 public class Stats {
 	private int hp;

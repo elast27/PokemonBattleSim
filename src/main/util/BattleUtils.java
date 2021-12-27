@@ -1,4 +1,9 @@
-package main;
+package main.util;
+
+import main.item.SuperEffectiveBerry;
+import main.move.Move;
+import main.pokemon.Pokemon;
+import main.pokemon.Stat;
 
 public class BattleUtils {
 	public static double damageCalc(Pokemon attacker, Move move, Pokemon defender) {
@@ -77,8 +82,6 @@ public class BattleUtils {
 		endOfTurn(p1,p2);
 	}
 	public static void endOfTurn(Pokemon a, Pokemon b) {
-		a.isFlinched=false;
-		b.isFlinched=false;
 		if(a.getHp()>0) a.conditionCheck();
 		if(b.getHp()>0) b.conditionCheck();
 	}

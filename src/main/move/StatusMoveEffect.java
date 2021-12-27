@@ -1,4 +1,6 @@
-package main;
+package main.move;
+
+import main.pokemon.Pokemon;
 
 @FunctionalInterface
 public interface StatusMoveEffect {

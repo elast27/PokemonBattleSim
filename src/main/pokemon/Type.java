@@ -1,4 +1,4 @@
-package main;
+package main.pokemon;
 
 import java.awt.Color;
 import java.util.ArrayList;
