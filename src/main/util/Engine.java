@@ -16,7 +16,7 @@ public class Engine {
 		Manaphy.setEvs(new Stats(20,0,5,100,0,130));
 		Manaphy.setIvs(new Stats(15,15,15,15,15,15));
 		Manaphy.setNature(Nature.RASH);
-		Manaphy.setHeldItem(Berry.SITRUS_BERRY);
+		//Manaphy.setHeldItem(Berry.SITRUS_BERRY);
 		
 		Pokemon Talonflame = new Pokemon(663, "Talonflame", 45, new Stats(78,81,71,74,69,126), Type.FIRE, Type.FLYING, null, Ability.KEEN_EYE);
 		

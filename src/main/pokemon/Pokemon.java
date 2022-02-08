@@ -180,6 +180,8 @@ public class Pokemon {
 		case SPE:
 			s.setSpe(value);
 			break;
+		default:
+			break;
 		}
 	}
 	
@@ -210,6 +212,8 @@ public class Pokemon {
 		case SPE:
 			v = s.getSpe();
 			s.setSpe(v + value);
+			break;
+		default:
 			break;
 		}
 	}
@@ -248,7 +252,10 @@ public class Pokemon {
 	}
 	
 	public void setPoison(double prob) {
-		
+		if(this.condition==null) {
+			this.condition=Condition.POISON;
+			System.out.println(this.getName()+" was poisoned!");
+		}
 	}
 	public void setBadPoison(double prob) {
 		double r = Math.random();
@@ -336,14 +343,16 @@ public class Pokemon {
 		if(this.heldItem!=null) {
 			Item item = this.getHeldItem();
 			if(item instanceof HealBerry) {
-				double v = ((HealBerry) item).getBerryeffect().apply(this);
-				if(v < 1 && v > 0) {
-					this.setHp((int)(this.getHp()+(this.getStat(Stat.HP)*v)));
-				} else {
-					this.setHp((int)(this.getHp()+v));
+				if(this.getHp() < this.getStat(Stat.HP)/2) {
+					double v = ((HealBerry) item).getBerryeffect().apply(this);
+					if(v < 1 && v > 0) {
+						this.setHp((int)(this.getHp()+(this.getStat(Stat.HP)*v)));
+					} else {
+						this.setHp((int)(this.getHp()+v));
+					}
+					System.out.println(this.getName()+" was healed by its "+this.getHeldItem().getName());
+					this.setHeldItem(null);
 				}
-				System.out.println(this.getName()+" was healed by its "+this.getHeldItem().getName());
-				this.setHeldItem(null);
 			}
 		}
 	}
